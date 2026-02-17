@@ -1260,21 +1260,38 @@
         "Your future is hidden inside your daily routine."
     ];
 
-    function getDailyQuote() {
-        const today = new Date().getDate();
-        const index = today % quotes.length;
-        const quoteEl = document.getElementById("daily-quote-text");
-        quoteEl.style.opacity = 0;
-        setTimeout(() => {
-            quoteEl.textContent = quotes[index];
-            quoteEl.style.transition = "opacity 0.5s ease";
-            quoteEl.style.opacity = 1;
-        }, 200);
-    }
-    getDailyQuote();
+   function getDailyQuote() {
+    const today = new Date().getDate();
+    const index = today % quotes.length;
 
-    // Copy buttons
-    document.querySelectorAll(".copy-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            const quote = this.parentElement.querySelector(".quote-text").textContent;
-            navigator.clipboard.writeText(quote);
+    const quoteEl = document.getElementById("daily-quote-text");
+
+    quoteEl.style.opacity = 0;
+
+    setTimeout(() => {
+        quoteEl.textContent = quotes[index];
+        quoteEl.style.transition = "opacity 0.5s ease";
+        quoteEl.style.opacity = 1;
+    }, 200);
+}
+
+getDailyQuote();
+
+// ==============================
+// 📋 Copy to Clipboard
+// ==============================
+
+document.querySelectorAll(".copy-btn").forEach(button => {
+    button.addEventListener("click", function() {
+        const quote = this.parentElement.querySelector(".quote-text").textContent;
+        navigator.clipboard.writeText(quote);
+
+        this.textContent = "Copied!";
+        setTimeout(() => {
+            this.textContent = "Copy";
+        }, 1500);
+    });
+});
+</script>
+</body>
+</html>
