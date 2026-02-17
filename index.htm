@@ -29,12 +29,11 @@
         }
 
         body.dark-mode {
-    --color-bg: #0e0e11;
-    --color-text: #f5f5f5;
-    --color-text-light: #a1a1aa;
-    --color-border: #2a2a2e;
-}
-
+            --color-bg: #0e0e11;
+            --color-text: #f5f5f5;
+            --color-text-light: #a1a1aa;
+            --color-border: #2a2a2e;
+        }
 
         * {
             margin: 0;
@@ -54,7 +53,127 @@
             scroll-behavior: smooth;
         }
 
-        /* Navigation */
+        /* ================================
+           FESTIVAL BANNER — Premium
+        ================================ */
+        #festival-banner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            min-height: 62px;
+            padding: 16px 52px;
+            text-align: center;
+            z-index: 1001;
+            overflow: hidden;
+            animation: bannerSlideIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        /* Shimmer glass layer on top of gradient */
+        #festival-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                rgba(255,255,255,0.14) 0%,
+                rgba(255,255,255,0.04) 50%,
+                rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+
+        @keyframes bannerSlideIn {
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
+        }
+
+        #festival-banner .banner-inner {
+            position: relative;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.5;
+        }
+
+        #festival-banner .festival-emoji {
+            font-size: 1.25rem;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+            animation: popIn 0.5s 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0) rotate(-15deg); }
+            to   { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Floating particles */
+        #festival-banner .fp {
+            position: absolute;
+            border-radius: 2px;
+            pointer-events: none;
+            animation: fpDrift linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fpDrift {
+            0%   { transform: translateY(0) rotate(0deg) scale(1);    opacity: 0; }
+            12%  { opacity: 0.65; }
+            88%  { opacity: 0.4; }
+            100% { transform: translateY(-68px) rotate(270deg) scale(0.2); opacity: 0; }
+        }
+
+        #festival-banner .close-banner {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            background: rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            opacity: 0.5;
+            transition: opacity 0.2s, background 0.2s;
+            color: inherit;
+        }
+        #festival-banner .close-banner:hover { opacity: 1; background: rgba(0,0,0,0.35); }
+
+        /* ── Cinematic gradient themes ── */
+        #festival-banner.theme-diwali      { background: linear-gradient(118deg, #78200a, #c2410c, #f59e0b, #fef08a); color: #ffe8c8; }
+        #festival-banner.theme-holi        { background: linear-gradient(118deg, #5b0f6b, #9d174d, #1e40af, #065f46); color: #fff; }
+        #festival-banner.theme-christmas   { background: linear-gradient(118deg, #14532d, #16a34a, #991b1b, #dc2626); color: #dcfce7; }
+        #festival-banner.theme-newyear     { background: linear-gradient(118deg, #020617, #0f172a, #1e1b4b, #4f46e5); color: #c7d2fe; }
+        #festival-banner.theme-eid         { background: linear-gradient(118deg, #022c22, #065f46, #059669, #a7f3d0); color: #fff; }
+        #festival-banner.theme-navratri    { background: linear-gradient(118deg, #4a044e, #86198f, #be185d, #ea580c); color: #fff; }
+        #festival-banner.theme-independence{ background: linear-gradient(118deg, #431407, #c2410c, #f97316, #fef9c3); color: #431407; }
+        #festival-banner.theme-halloween   { background: linear-gradient(118deg, #0c0a09, #1c1917, #78350f, #ea580c); color: #fed7aa; }
+        #festival-banner.theme-valentines  { background: linear-gradient(118deg, #4c0519, #9f1239, #e11d48, #fb7185); color: #fff; }
+        #festival-banner.theme-thanksgiving{ background: linear-gradient(118deg, #431407, #7c2d12, #b45309, #fbbf24); color: #fff7ed; }
+        #festival-banner.theme-easter      { background: linear-gradient(118deg, #2e1065, #5b21b6, #a21caf, #f0abfc); color: #fff; }
+        #festival-banner.theme-janmashtami { background: linear-gradient(118deg, #0c1445, #1e3a8a, #2563eb, #f59e0b); color: #fff; }
+        #festival-banner.theme-ganesh      { background: linear-gradient(118deg, #451a03, #92400e, #d97706, #fef08a); color: #1a0800; }
+        #festival-banner.theme-pongal      { background: linear-gradient(118deg, #052e16, #14532d, #16a34a, #a3e635); color: #fff; }
+        #festival-banner.theme-lohri       { background: linear-gradient(118deg, #431407, #7c2d12, #ea580c, #fbbf24); color: #fff; }
+        #festival-banner.theme-guru        { background: linear-gradient(118deg, #172554, #1e40af, #2563eb, #fbbf24); color: #fff; }
+        #festival-banner.theme-republic    { background: linear-gradient(118deg, #431407, #c2410c, #f97316, #fef9c3); color: #431407; }
+        #festival-banner.theme-raksha      { background: linear-gradient(118deg, #500724, #9d174d, #db2777, #fbcfe8); color: #fff; }
+        #festival-banner.theme-default     { background: linear-gradient(118deg, #1e1b4b, #312e81, #4f46e5, #818cf8); color: #fff; }
+
+        /* ================================
+           NAVIGATION
+        ================================ */
         nav {
             position: fixed;
             top: 0;
@@ -72,14 +191,8 @@
         }
 
         @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
         }
 
         .nav-content {
@@ -132,15 +245,9 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--color-text);
-        }
+        .nav-links a:hover { color: var(--color-text); }
+        .nav-links a:hover::after { width: 100%; }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Mobile menu toggle */
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
@@ -156,19 +263,10 @@
             transition: all 0.3s ease;
         }
 
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
+        .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+        .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
 
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        /* Dark mode toggle */
         .theme-toggle {
             background: none;
             border: none;
@@ -180,9 +278,7 @@
             transition: transform 0.3s ease;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
+        .theme-toggle:hover { transform: scale(1.1); }
 
         .theme-toggle svg {
             width: 22px;
@@ -191,9 +287,9 @@
             stroke: var(--color-text);
         }
 
-
-
-        /* Hero Section */
+        /* ================================
+           HERO
+        ================================ */
         .hero {
             max-width: 800px;
             margin: 0 auto;
@@ -202,14 +298,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .hero h1 {
@@ -227,7 +317,9 @@
             margin-bottom: 0.8rem;
         }
 
-        /* Main Content */
+        /* ================================
+           MAIN CONTENT
+        ================================ */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -329,7 +421,6 @@
             margin-bottom: 0;
         }
 
-        /* Article Content (hidden by default) */
         .article-full-content {
             max-height: 0;
             overflow: hidden;
@@ -343,13 +434,8 @@
             opacity: 1;
         }
 
-        .article-full-content h4 {
-            margin-top: 2rem;
-        }
-
-        .article-full-content h4:first-child {
-            margin-top: 0;
-        }
+        .article-full-content h4 { margin-top: 2rem; }
+        .article-full-content h4:first-child { margin-top: 0; }
 
         .article-full-content ul {
             margin-left: 2rem;
@@ -389,186 +475,92 @@
             margin-top: 1rem;
         }
 
-        
-        /* Quote Block */
-        .quote-block {
-            border-left: 3px solid var(--color-accent);
-            padding: 2rem 2rem 2rem 2.5rem;
-            margin: 3rem 0;
-            background: rgba(37, 99, 235, 0.03);
-            font-style: italic;
-        }
-
-        .quote-block p {
-            font-size: 1.3rem;
-            line-height: 1.7;
-            margin-bottom: 0.5rem;
-        }
-
         /* Scroll Reveal Animation */
-.reveal-quote {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: transform 0.8s ease, opacity 0.8s ease;
-}
+        .reveal-quote {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
 
-.reveal-quote.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .reveal-quote.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Quote of the Day */
-.quote-of-day {
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
-    padding: 2rem;
-    margin-bottom: 3rem;
-    background: white;
-}
+        #quotes { padding: 60px 20px; text-align: center; }
 
-.quote-of-day h3 {
-    font-family: var(--font-sans);
-    margin-bottom: 1rem;
-}
+        .quote-of-day {
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            background: var(--color-card-bg);
+            transition: all 0.3s ease;
+        }
 
-#daily-quote-text {
-    font-size: 1.3rem;
-    font-style: italic;
-}
+        .quote-of-day h3 { font-family: var(--font-sans); margin-bottom: 1rem; }
 
-/* Quote List Styling */
-.quotes-list {
-    list-style: none;
-    padding: 0;
-}
+        #daily-quote-text { font-size: 1.3rem; font-style: italic; }
 
-.quotes-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-}
+        .quotes-container {
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            padding: 2rem;
+        }
 
-.quote-text {
-    flex: 1;
-    font-style: italic;
-}
+        .quotes-list { list-style: none; padding: 0; margin: 0; }
 
-/* Copy Button */
-.copy-btn {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    border: 1px solid var(--color-border);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        .quotes-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
 
-.copy-btn:hover {
-    background: var(--color-accent);
-    color: white;
-    border-color: var(--color-accent);
-}
+        .quote-text { flex: 1; font-style: italic; }
 
-/* ===============================
-   QUOTES SECTION (FIXED)
-=================================*/
+        .copy-btn {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-#quotes {
-    padding: 60px 20px;
-    text-align: center;
-}
+        .copy-btn:hover {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
 
-.quote-of-day {
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
-    padding: 2rem;
-    margin-bottom: 3rem;
-    background: var(--color-card-bg);
-    transition: all 0.3s ease;
-}
+        .content-disclaimer {
+            margin-top: 3rem;
+            padding: 1.5rem 2rem;
+            border-left: 3px solid var(--color-border);
+            background: rgba(0, 0, 0, 0.02);
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+        }
 
-.quote-of-day h3 {
-    font-family: var(--font-sans);
-    margin-bottom: 1rem;
-}
-
-#daily-quote-text {
-    font-size: 1.3rem;
-    font-style: italic;
-}
-
-/* Quote List */
-.quotes-container {
-    background: var(--color-card-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
-    padding: 2rem;
-}
-
-.quotes-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.quotes-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-}
-
-.quote-text {
-    flex: 1;
-    font-style: italic;
-}
-
-/* Copy Button */
-.copy-btn {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    border: 1px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.copy-btn:hover {
-    background: var(--color-accent);
-    color: white;
-    border-color: var(--color-accent);
-}
-
-/* Scroll Reveal */
-.reveal-quote {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.reveal-quote.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
+        .content-disclaimer strong {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+        }
 
         body.dark-mode .content-disclaimer {
-    background: rgba(255,255,255,0.03);
-    border-left: 3px solid #2a2a2e;
-}
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid #2a2a2e;
+        }
 
-
-        /* Newsletter Section */
+        /* Newsletter */
         .newsletter {
             background: var(--color-text);
             color: var(--color-bg);
@@ -582,14 +574,8 @@
             border: 1px solid var(--color-border);
         }
 
-        .newsletter h2 {
-            color: var(--color-bg);
-            margin-bottom: 1rem;
-        }
-
-        [data-theme="dark"] .newsletter h2 {
-            color: var(--color-text);
-        }
+        .newsletter h2 { color: var(--color-bg); margin-bottom: 1rem; }
+        [data-theme="dark"] .newsletter h2 { color: var(--color-text); }
 
         .newsletter p {
             color: rgba(253, 251, 247, 0.8);
@@ -597,9 +583,7 @@
             margin-bottom: 2rem;
         }
 
-        [data-theme="dark"] .newsletter p {
-            color: var(--color-text-light);
-        }
+        [data-theme="dark"] .newsletter p { color: var(--color-text-light); }
 
         .newsletter-form {
             display: flex;
@@ -630,13 +614,8 @@
             color: var(--color-text);
         }
 
-        .newsletter-form input::placeholder {
-            color: rgba(253, 251, 247, 0.5);
-        }
-
-        [data-theme="dark"] .newsletter-form input::placeholder {
-            color: var(--color-text-light);
-        }
+        .newsletter-form input::placeholder { color: rgba(253, 251, 247, 0.5); }
+        [data-theme="dark"] .newsletter-form input::placeholder { color: var(--color-text-light); }
 
         .newsletter-form input:focus {
             background: rgba(253, 251, 247, 0.15);
@@ -667,21 +646,6 @@
             box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
         }
 
-        .content-disclaimer {
-    margin-top: 3rem;
-    padding: 1.5rem 2rem;
-    border-left: 3px solid var(--color-border);
-    background: rgba(0, 0, 0, 0.02);
-    font-size: 0.95rem;
-    color: var(--color-text-light);
-}
-
-.content-disclaimer strong {
-    font-family: var(--font-sans);
-    color: var(--color-text);
-}
-
-
         /* Footer */
         footer {
             max-width: 800px;
@@ -693,7 +657,6 @@
 
         .social-links {
             display: flex;
-            align-items: center;
             justify-content: center;
             gap: 2rem;
             margin-bottom: 2rem;
@@ -707,22 +670,11 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            width: 40px;            /* fixed box size */
-            height: 40px;
         }
 
-        .social-links a:hover {
-            color: var(--color-accent);
-            transform: translateY(-2px);
-        }
+        .social-links a:hover { color: var(--color-accent); transform: translateY(-2px); }
 
-        .social-links svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-            transition: 0.3s ease;
-
-        }
+        .social-links svg { width: 24px; height: 24px; fill: currentColor; }
 
         footer p {
             font-family: var(--font-sans);
@@ -732,17 +684,9 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-content {
-                padding: 1rem 1.5rem;
-            }
-
-            .nav-right {
-                gap: 1rem;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-            }
+            .nav-content { padding: 1rem 1.5rem; }
+            .nav-right { gap: 1rem; }
+            .mobile-menu-toggle { display: flex; }
 
             .nav-links {
                 position: fixed;
@@ -759,17 +703,9 @@
                 border-bottom: 1px solid var(--color-border);
             }
 
-            .nav-links.active {
-                max-height: 300px;
-            }
-
-            .nav-links li {
-                border-bottom: 1px solid var(--color-border);
-            }
-
-            .nav-links li:last-child {
-                border-bottom: none;
-            }
+            .nav-links.active { max-height: 300px; }
+            .nav-links li { border-bottom: 1px solid var(--color-border); }
+            .nav-links li:last-child { border-bottom: none; }
 
             .nav-links a {
                 display: block;
@@ -777,55 +713,46 @@
                 font-size: 1rem;
             }
 
-            .nav-links a::after {
-                display: none;
-            }
+            .nav-links a::after { display: none; }
 
-            .hero {
-                padding: 10rem 1.5rem 4rem;
-            }
+            .hero { padding: 10rem 1.5rem 4rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.15rem; }
+            h2 { font-size: 1.8rem; }
+            p { font-size: 1.1rem; }
+            .container { padding: 0 1.5rem 4rem; }
+            .newsletter-form { flex-direction: column; }
+            .newsletter-form input { min-width: 100%; }
 
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.15rem;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-
-            p {
-                font-size: 1.1rem;
-            }
-
-            .container {
-                padding: 0 1.5rem 4rem;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .newsletter-form input {
-                min-width: 100%;
-            }
+            #festival-banner { font-size: 0.85rem; padding: 12px 40px 12px 16px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ================================
+         FESTIVAL BANNER (premium)
+    ================================ -->
+    <div id="festival-banner" role="banner" aria-live="polite">
+        <div id="fp-container"></div>
+        <div class="banner-inner">
+            <span class="festival-emoji" id="festival-emoji"></span>
+            <span id="festival-message"></span>
+            <span class="festival-emoji" id="festival-emoji2"></span>
+        </div>
+        <button class="close-banner" onclick="closeFestivalBanner()" aria-label="Close banner">✕</button>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-content">
             <a href="#home" class="logo">Yagnik!</a>
             <div class="nav-right">
                 <ul class="nav-links">
-                    <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
-                    <li><a href="#writing" onclick="closeMobileMenu()">Writing</a></li>
+                    <li><a href="#about"      onclick="closeMobileMenu()">About</a></li>
+                    <li><a href="#writing"    onclick="closeMobileMenu()">Writing</a></li>
                     <li><a href="#newsletter" onclick="closeMobileMenu()">Newsletter</a></li>
-                    <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+                    <li><a href="#contact"    onclick="closeMobileMenu()">Contact</a></li>
                 </ul>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
                     <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -894,59 +821,28 @@
         <!-- Writing Section -->
         <section id="writing">
             <h2>Featured Writing</h2>
-            <p>
-                I publish essays, frameworks, and mental models every week. Here are some of my most popular pieces:
-            </p>
+            <p>I publish essays, frameworks, and mental models every week. Here are some of my most popular pieces:</p>
 
             <div class="article-grid">
                 <!-- Article 1: Procrastination -->
                 <div class="article-card" onclick="toggleArticle(this)">
                     <div class="article-meta">Frameworks & Tools</div>
                     <h3>How to Stop Procrastinating</h3>
-                    <p>
-                        A deep dive into Skinner's Law and the pleasure-pain framework that governs human behavior. 
-                        Learn how to hack your motivation when you find yourself avoiding important work.
-                    </p>
-                    
+                    <p>A deep dive into Skinner's Law and the pleasure-pain framework that governs human behavior. Learn how to hack your motivation when you find yourself avoiding important work.</p>
                     <div class="article-full-content">
                         <h4>Understanding Skinner's Law</h4>
-                        <p>
-                            In 1789, philosopher Jeremy Bentham mused on the two forces that control our lives: 
-                            the pursuit of pleasure and the avoidance of pain. This general idea is the basis for 
-                            the most useful productivity framework you've probably never heard of.
-                        </p>
-                        <p>
-                            It's called Skinner's Law. The law is named after behavioral psychologist B.F. Skinner, 
-                            who was a pioneer in the study of how rewards and punishments shape human behavior.
-                        </p>
-                        <p>
-                            Skinner's Law says that to get yourself to do something, you need to either:
-                        </p>
+                        <p>In 1789, philosopher Jeremy Bentham mused on the two forces that control our lives: the pursuit of pleasure and the avoidance of pain. This general idea is the basis for the most useful productivity framework you've probably never heard of.</p>
+                        <p>It's called Skinner's Law. The law is named after behavioral psychologist B.F. Skinner, who was a pioneer in the study of how rewards and punishments shape human behavior.</p>
+                        <p>Skinner's Law says that to get yourself to do something, you need to either:</p>
                         <ul>
                             <li>Make the pain of not doing it greater than the pain of doing it, or</li>
                             <li>Make the pleasure of doing it greater than the pleasure of not doing it</li>
                         </ul>
-                        <p>
-                            It's a very simple way of hacking your motivation when you find yourself 
-                            procrastinating on or avoiding something important.
-                        </p>
-
+                        <p>It's a very simple way of hacking your motivation when you find yourself procrastinating on or avoiding something important.</p>
                         <h4>Practical Application</h4>
-                        <p>
-                            When I was writing my book, I kept saying it was my top priority, but weeks would 
-                            pass without meaningful progress. Why? Ultimately, it was because of a pleasure-pain 
-                            mismatch. Given how far out the deadline was, it was much easier (higher pleasure, 
-                            lower pain) to skip writing on any given day than it was to sit down and work.
-                        </p>
-                        <p>
-                            To fix this, I needed to adjust the equation. I made the pain of not writing greater 
-                            by creating public accountability and setting up daily check-ins with a writing partner. 
-                            I made the pleasure of writing greater by rewarding myself after each writing session.
-                        </p>
-                        <p>
-                            The framework is simple, but the impact is profound. Next time you find yourself 
-                            procrastinating, ask: How can I adjust the pleasure-pain equation?
-                        </p>
+                        <p>When I was writing my book, I kept saying it was my top priority, but weeks would pass without meaningful progress. Why? Ultimately, it was because of a pleasure-pain mismatch. Given how far out the deadline was, it was much easier (higher pleasure, lower pain) to skip writing on any given day than it was to sit down and work.</p>
+                        <p>To fix this, I needed to adjust the equation. I made the pain of not writing greater by creating public accountability and setting up daily check-ins with a writing partner. I made the pleasure of writing greater by rewarding myself after each writing session.</p>
+                        <p>The framework is simple, but the impact is profound. Next time you find yourself procrastinating, ask: How can I adjust the pleasure-pain equation?</p>
                     </div>
                 </div>
 
@@ -954,51 +850,18 @@
                 <div class="article-card" onclick="toggleArticle(this)">
                     <div class="article-meta">Productivity</div>
                     <h3>The 5 Types of Wealth</h3>
-                    <p>
-                        Money is just one form of wealth. Discover the five types that truly matter and how to 
-                        build a rich life across all dimensions.
-                    </p>
-                    
+                    <p>Money is just one form of wealth. Discover the five types that truly matter and how to build a rich life across all dimensions.</p>
                     <div class="article-full-content">
                         <h4>Redefining Wealth</h4>
-                        <p>
-                            We live in a world that equates wealth with money. But true wealth is measured across 
-                            multiple dimensions, and financial wealth is just one piece of the puzzle.
-                        </p>
-
+                        <p>We live in a world that equates wealth with money. But true wealth is measured across multiple dimensions, and financial wealth is just one piece of the puzzle.</p>
                         <h4>The Five Types of Wealth</h4>
-                        <p>
-                            <strong>1. Social Wealth:</strong> The strength of your relationships and community. 
-                            This includes deep friendships, family bonds, and meaningful connections. No amount 
-                            of money can replace the joy of genuine human connection.
-                        </p>
-                        <p>
-                            <strong>2. Time Wealth:</strong> The freedom to spend your time as you choose. 
-                            It's not about having unlimited time, but having control over how you use it. 
-                            The wealthiest people guard their time fiercely.
-                        </p>
-                        <p>
-                            <strong>3. Physical Wealth:</strong> Your health and vitality. No amount of money 
-                            can compensate for poor health. Energy, strength, and wellness are the foundation 
-                            for everything else in life.
-                        </p>
-                        <p>
-                            <strong>4. Mental Wealth:</strong> Peace of mind, emotional well-being, and mental 
-                            clarity. This is the foundation for everything else. Without mental wealth, no other 
-                            form of wealth truly matters.
-                        </p>
-                        <p>
-                            <strong>5. Financial Wealth:</strong> Yes, money matters. But it's a tool to build 
-                            the other four types of wealth, not an end in itself. Money provides options, security, 
-                            and freedom—but only when used intentionally.
-                        </p>
-
+                        <p><strong>1. Social Wealth:</strong> The strength of your relationships and community. This includes deep friendships, family bonds, and meaningful connections. No amount of money can replace the joy of genuine human connection.</p>
+                        <p><strong>2. Time Wealth:</strong> The freedom to spend your time as you choose. It's not about having unlimited time, but having control over how you use it. The wealthiest people guard their time fiercely.</p>
+                        <p><strong>3. Physical Wealth:</strong> Your health and vitality. No amount of money can compensate for poor health. Energy, strength, and wellness are the foundation for everything else in life.</p>
+                        <p><strong>4. Mental Wealth:</strong> Peace of mind, emotional well-being, and mental clarity. This is the foundation for everything else. Without mental wealth, no other form of wealth truly matters.</p>
+                        <p><strong>5. Financial Wealth:</strong> Yes, money matters. But it's a tool to build the other four types of wealth, not an end in itself. Money provides options, security, and freedom—but only when used intentionally.</p>
                         <h4>Building True Wealth</h4>
-                        <p>
-                            The wealthiest people I know aren't necessarily the richest. They're the ones who 
-                            have achieved balance across all five dimensions. Start tracking your wealth across 
-                            all five types, and make intentional choices to build each one.
-                        </p>
+                        <p>The wealthiest people I know aren't necessarily the richest. They're the ones who have achieved balance across all five dimensions. Start tracking your wealth across all five types, and make intentional choices to build each one.</p>
                     </div>
                 </div>
 
@@ -1006,46 +869,17 @@
                 <div class="article-card" onclick="toggleArticle(this)">
                     <div class="article-meta">Mental Models</div>
                     <h3>First Principles Thinking</h3>
-                    <p>
-                        Break down complex problems to their fundamental truths. This is how Elon Musk, Aristotle, 
-                        and other great thinkers approach challenges.
-                    </p>
-                    
+                    <p>Break down complex problems to their fundamental truths. This is how Elon Musk, Aristotle, and other great thinkers approach challenges.</p>
                     <div class="article-full-content">
                         <h4>What Is First Principles Thinking?</h4>
-                        <p>
-                            First principles thinking is the practice of breaking down complex problems into 
-                            their most basic, foundational elements—the "first principles"—and rebuilding from there.
-                        </p>
-                        <p>
-                            Instead of reasoning by analogy (doing things because that's how they've always been done), 
-                            first principles thinking asks: What are the fundamental truths? What do we know to be 
-                            absolutely true?
-                        </p>
-
+                        <p>First principles thinking is the practice of breaking down complex problems into their most basic, foundational elements—the "first principles"—and rebuilding from there.</p>
+                        <p>Instead of reasoning by analogy (doing things because that's how they've always been done), first principles thinking asks: What are the fundamental truths? What do we know to be absolutely true?</p>
                         <h4>The Elon Musk Example</h4>
-                        <p>
-                            When Elon Musk wanted to build SpaceX, everyone told him rockets were too expensive. 
-                            The going rate to buy a rocket was $65 million. Instead of accepting this, he asked: 
-                            What are rockets made of? What is the raw material cost?
-                        </p>
-                        <p>
-                            He discovered that the materials cost was only about 2% of the typical rocket price. 
-                            The rest was markup, inefficiency, and legacy costs. By rebuilding from first principles, 
-                            SpaceX was able to reduce costs by 10x.
-                        </p>
-
+                        <p>When Elon Musk wanted to build SpaceX, everyone told him rockets were too expensive. The going rate to buy a rocket was $65 million. Instead of accepting this, he asked: What are rockets made of? What is the raw material cost?</p>
+                        <p>He discovered that the materials cost was only about 2% of the typical rocket price. The rest was markup, inefficiency, and legacy costs. By rebuilding from first principles, SpaceX was able to reduce costs by 10x.</p>
                         <h4>How to Apply It</h4>
-                        <p>
-                            1. Identify and challenge your assumptions<br>
-                            2. Break the problem down to fundamental truths<br>
-                            3. Create new solutions from the ground up
-                        </p>
-                        <p>
-                            This approach works for business problems, personal challenges, and strategic decisions. 
-                            The next time you face a complex problem, resist the urge to reason by analogy. 
-                            Go back to first principles.
-                        </p>
+                        <p>1. Identify and challenge your assumptions<br>2. Break the problem down to fundamental truths<br>3. Create new solutions from the ground up</p>
+                        <p>This approach works for business problems, personal challenges, and strategic decisions. The next time you face a complex problem, resist the urge to reason by analogy. Go back to first principles.</p>
                     </div>
                 </div>
 
@@ -1053,162 +887,106 @@
                 <div class="article-card" onclick="toggleArticle(this)">
                     <div class="article-meta">Philosophy</div>
                     <h3>The Stoic Path to Resilience</h3>
-                    <p>
-                        Ancient Stoic wisdom applied to modern challenges. How to build unshakeable mental strength 
-                        in an age of constant change.
-                    </p>
-                    
+                    <p>Ancient Stoic wisdom applied to modern challenges. How to build unshakeable mental strength in an age of constant change.</p>
                     <div class="article-full-content">
                         <h4>The Core of Stoicism</h4>
-                        <p>
-                            Stoicism, developed in ancient Greece and Rome, offers a practical philosophy for 
-                            navigating life's challenges. At its core is a simple but profound insight: 
-                            We cannot control what happens to us, but we can always control how we respond.
-                        </p>
-
+                        <p>Stoicism, developed in ancient Greece and Rome, offers a practical philosophy for navigating life's challenges. At its core is a simple but profound insight: We cannot control what happens to us, but we can always control how we respond.</p>
                         <h4>The Dichotomy of Control</h4>
-                        <p>
-                            The Stoics divided everything into two categories: things we can control and things 
-                            we cannot. We can control our thoughts, actions, and responses. We cannot control 
-                            other people, external events, or outcomes.
-                        </p>
-                        <p>
-                            Most of our suffering comes from trying to control what we cannot control, and 
-                            neglecting what we can. The path to resilience is accepting this dichotomy and 
-                            focusing our energy accordingly.
-                        </p>
-
+                        <p>The Stoics divided everything into two categories: things we can control and things we cannot. We can control our thoughts, actions, and responses. We cannot control other people, external events, or outcomes.</p>
+                        <p>Most of our suffering comes from trying to control what we cannot control, and neglecting what we can. The path to resilience is accepting this dichotomy and focusing our energy accordingly.</p>
                         <h4>Three Stoic Practices for Modern Life</h4>
-                        <p>
-                            <strong>Negative Visualization:</strong> Regularly imagine losing what you have. 
-                            This builds gratitude and prepares you for potential loss. By mentally rehearsing 
-                            loss, you become more resilient when challenges actually arise.
-                        </p>
-                        <p>
-                            <strong>The View from Above:</strong> Zoom out and see your problems from a cosmic 
-                            perspective. Most of what troubles us is small when viewed from this lens. This 
-                            practice helps you maintain perspective and avoid being overwhelmed by minor setbacks.
-                        </p>
-                        <p>
-                            <strong>Voluntary Discomfort:</strong> Deliberately practice discomfort (cold showers, 
-                            fasting, hard workouts) to build resilience and reduce dependence on comfort. By 
-                            choosing discomfort, you train yourself to handle involuntary discomfort better.
-                        </p>
-
+                        <p><strong>Negative Visualization:</strong> Regularly imagine losing what you have. This builds gratitude and prepares you for potential loss. By mentally rehearsing loss, you become more resilient when challenges actually arise.</p>
+                        <p><strong>The View from Above:</strong> Zoom out and see your problems from a cosmic perspective. Most of what troubles us is small when viewed from this lens. This practice helps you maintain perspective and avoid being overwhelmed by minor setbacks.</p>
+                        <p><strong>Voluntary Discomfort:</strong> Deliberately practice discomfort (cold showers, fasting, hard workouts) to build resilience and reduce dependence on comfort. By choosing discomfort, you train yourself to handle involuntary discomfort better.</p>
                         <h4>Building Unshakeable Strength</h4>
-                        <p>
-                            Stoicism isn't about suppressing emotions—it's about not being controlled by them. 
-                            It's about building mental strength that serves you in both good times and bad.
-                        </p>
+                        <p>Stoicism isn't about suppressing emotions—it's about not being controlled by them. It's about building mental strength that serves you in both good times and bad.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-                <!-- My Quotes Diaries Section -->
-<section id="quotes">
-    <h2>My Quotes Diaries!</h2>
-    <p>Thoughts I’ve written during silent nights, hard days, and ambitious mornings.</p>
+        <!-- My Quotes Diaries Section -->
+        <section id="quotes">
+            <h2>My Quotes Diaries!</h2>
+            <p>Thoughts I've written during silent nights, hard days, and ambitious mornings.</p>
 
-    <!-- Random Quote of the Day -->
-    <div class="quote-of-day">
-        <h3>Quote of the Day</h3>
-        <p id="daily-quote-text"></p>
-    </div>
+            <div class="quote-of-day">
+                <h3>Quote of the Day</h3>
+                <p id="daily-quote-text"></p>
+            </div>
 
-    <!-- All Quotes -->
-    <div class="quotes-container">
-        <ul class="quotes-list">
-            <li class="reveal-quote">
-                <span class="quote-text">Your comfort zone is renting space in your potential.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">Discipline is choosing what you want most over what you want now.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">If you can control your focus, you can control your future.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">Pain is temporary. Regret is permanent.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">Small actions done daily beat motivation done occasionally.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">You don’t lack talent — you lack consistent effort.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">Be the driver of your life, not the passenger of your habits.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-            <li class="reveal-quote">
-                <span class="quote-text">Your future is hidden inside your daily routine.</span>
-                <button class="copy-btn">Copy</button>
-            </li>
-        </ul>
-    </div>
-</section>
+            <div class="quotes-container">
+                <ul class="quotes-list">
+                    <li class="reveal-quote">
+                        <span class="quote-text">Your comfort zone is renting space in your potential.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">Discipline is choosing what you want most over what you want now.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">If you can control your focus, you can control your future.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">Pain is temporary. Regret is permanent.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">Small actions done daily beat motivation done occasionally.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">You don't lack talent — you lack consistent effort.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">Be the driver of your life, not the passenger of your habits.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                    <li class="reveal-quote">
+                        <span class="quote-text">Your future is hidden inside your daily routine.</span>
+                        <button class="copy-btn">Copy</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
         <!-- What I Believe -->
         <section>
             <h2>What I Believe</h2>
-            <p>
-                Over years of research and writing, I've developed a set of core principles that guide my work:
-            </p>
+            <p>Over years of research and writing, I've developed a set of core principles that guide my work:</p>
 
             <h3>Simple beats complex</h3>
-            <p>
-                The most powerful ideas are often the simplest. My goal is to take complex concepts and distill 
-                them into frameworks you can remember and apply. If you can't explain it simply, you don't 
-                understand it well enough.
-            </p>
+            <p>The most powerful ideas are often the simplest. My goal is to take complex concepts and distill them into frameworks you can remember and apply. If you can't explain it simply, you don't understand it well enough.</p>
 
             <h3>Action beats theory</h3>
-            <p>
-                Knowledge without application is just trivia. Every framework I share comes with concrete steps 
-                you can take today. The gap between knowing and doing is where most people get stuck—I help you 
-                bridge that gap.
-            </p>
+            <p>Knowledge without application is just trivia. Every framework I share comes with concrete steps you can take today. The gap between knowing and doing is where most people get stuck—I help you bridge that gap.</p>
 
             <h3>Timeless beats trendy</h3>
-            <p>
-                I'm more interested in principles that have worked for centuries than tactics that might work 
-                this quarter. Stoic philosophy, cognitive psychology, behavioral economics—these fields offer 
-                insights that remain relevant regardless of technological change.
-            </p>
+            <p>I'm more interested in principles that have worked for centuries than tactics that might work this quarter. Stoic philosophy, cognitive psychology, behavioral economics—these fields offer insights that remain relevant regardless of technological change.</p>
 
             <h3>Questions beat answers</h3>
-            <p>
-                The right question is more valuable than the right answer. I try to equip you with better 
-                questions to ask yourself, your team, and your work. Questions open doors; answers close them.
-            </p>
+            <p>The right question is more valuable than the right answer. I try to equip you with better questions to ask yourself, your team, and your work. Questions open doors; answers close them.</p>
         </section>
     </div>
 
-              <div class="content-disclaimer">
-    <p>
-        <strong>Note:</strong> Some ideas, frameworks, and quotations shared on this website are inspired by and derived from various books, research papers, articles, and online platforms including X (formerly Twitter). 
-        Wherever possible, I aim to provide proper attribution to the original creators.
-    </p>
-    <p>
-        If you believe any content has been shared without appropriate credit, please feel free to reach out. 
-        I will gladly review and resolve the matter promptly.
-    </p>
-              </div>
-
+    <div class="content-disclaimer">
+        <p>
+            <strong>Note:</strong> Some ideas, frameworks, and quotations shared on this website are inspired by and derived from various books, research papers, articles, and online platforms including X (formerly Twitter). 
+            Wherever possible, I aim to provide proper attribution to the original creators.
+        </p>
+        <p>
+            If you believe any content has been shared without appropriate credit, please feel free to reach out. 
+            I will gladly review and resolve the matter promptly.
+        </p>
+    </div>
 
     <!-- Newsletter Section -->
     <section id="newsletter" class="newsletter">
         <h2>Join the Movement</h2>
-        <p>
-            Join and receive high-signal, curiosity-inducing content every single week.
-        </p>
+        <p>Join and receive high-signal, curiosity-inducing content every single week.</p>
         <form class="newsletter-form" onsubmit="handleSubscribe(event)">
             <input type="email" placeholder="Enter your email" required>
             <button type="submit">Subscribe</button>
@@ -1228,13 +1006,11 @@
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
             </a>
-<a href="mailto:yagnikpatel@zohomail.in" aria-label="Email">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
-    </svg>
-</a>
-
-
+            <a href="/cdn-cgi/l/email-protection#e49d85838a8d8f9485908188a49e8b8c8b89858d88ca8d8a" aria-label="Email">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
+                </svg>
+            </a>
             <a href="#" aria-label="YouTube">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -1244,169 +1020,261 @@
         <p>© 2026 Yagnik N. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Theme toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Toggle icons
-            const sunIcon = document.querySelector('.sun-icon');
-            const moonIcon = document.querySelector('.moon-icon');
-            
-            if (newTheme === 'dark') {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
+    <!-- ================================
+         SCRIPTS
+    ================================ -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ============================================================
+    // FESTIVAL BANNER — Premium Edition
+    // ============================================================
+    (function() {
+
+        const FESTIVALS = [
+            { name:"Diwali",             month:10, day:20, theme:"diwali",       emoji:"🪔",  msg:"Happy Diwali! May your life always be lit with knowledge and love." },
+            { name:"Holi",               month:3,  day:14, theme:"holi",         emoji:"🎨",  msg:"Happy Holi! May your life be as colourful as today!" },
+            { name:"Navratri",           month:10, day:3,  theme:"navratri",     emoji:"💃",  msg:"Happy Navratri! Nine nights of divine energy — dance, celebrate, shine!" },
+            { name:"Ganesh Chaturthi",   month:9,  day:2,  theme:"ganesh",       emoji:"🐘",  msg:"Ganpati Bappa Morya! May Ganesha remove every obstacle in your path." },
+            { name:"Janmashtami",        month:8,  day:16, theme:"janmashtami",  emoji:"🦚",  msg:"Happy Janmashtami! May Lord Krishna's wisdom guide you always." },
+            { name:"Raksha Bandhan",     month:8,  day:19, theme:"raksha",       emoji:"🎀",  msg:"Happy Raksha Bandhan! Celebrate the beautiful bond of siblings." },
+            { name:"Independence Day",   month:8,  day:15, theme:"independence", emoji:"🇮🇳", msg:"Happy Independence Day! Freedom is precious — use it wisely. Jai Hind!" },
+            { name:"Republic Day",       month:1,  day:26, theme:"republic",     emoji:"🇮🇳", msg:"Happy Republic Day! Proud to be Indian. Jai Hind!" },
+            { name:"Lohri",              month:1,  day:13, theme:"lohri",        emoji:"🔥",  msg:"Lohri Mubarak! Wishing you warmth, joy, and a bonfire of good vibes!" },
+            { name:"Makar Sankranti",    month:1,  day:14, theme:"pongal",       emoji:"🪁",  msg:"Happy Makar Sankranti! May this harvest season fill your life with sweetness." },
+            { name:"Eid al-Fitr",        month:3,  day:31, theme:"eid",          emoji:"🌙",  msg:"Eid Mubarak! Wishing you peace, joy, and countless blessings!" },
+            { name:"Eid al-Adha",        month:6,  day:7,  theme:"eid",          emoji:"🌙",  msg:"Eid ul-Adha Mubarak! May your sacrifices be rewarded." },
+            { name:"Guru Nanak Jayanti", month:11, day:5,  theme:"guru",         emoji:"🙏",  msg:"Happy Guru Nanak Jayanti! Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh!" },
+            { name:"Dussehra",           month:10, day:12, theme:"navratri",     emoji:"🏹",  msg:"Happy Dussehra! May good always triumph over evil in your life." },
+            { name:"Bhai Dooj",          month:10, day:24, theme:"diwali",       emoji:"🎊",  msg:"Happy Bhai Dooj! Cherish those sibling bonds forever!" },
+            { name:"Christmas",          month:12, day:25, theme:"christmas",    emoji:"🎄",  msg:"Merry Christmas! May the season fill your home with warmth and wonder." },
+            { name:"New Year",           month:1,  day:1,  theme:"newyear",      emoji:"🎉",  msg:"Happy New Year! A blank page — make it a masterpiece." },
+            { name:"New Year's Eve",    month:12, day:31, theme:"newyear",      emoji:"🥂",  msg:"Happy New Year's Eve! Reflect, reset, and get ready to rise." },
+            { name:"Valentine's Day",   month:2,  day:14, theme:"valentines",   emoji:"💌",  msg:"Happy Valentine's Day! Spread love, always." },
+            { name:"Halloween",          month:10, day:31, theme:"halloween",    emoji:"🎃",  msg:"Happy Halloween! Be spooky, be curious, be you!" },
+            { name:"Thanksgiving",       month:11, day:28, theme:"thanksgiving", emoji:"🦃",  msg:"Happy Thanksgiving! Gratitude is the highest form of thought." },
+            { name:"Easter",             month:4,  day:20, theme:"easter",       emoji:"🐣",  msg:"Happy Easter! May this season bring renewal and new beginnings!" },
+        ];
+
+        const PARTICLES = {
+            diwali:       ["#f97316","#fbbf24","#fef08a","#fff","#fb923c"],
+            holi:         ["#f472b6","#818cf8","#34d399","#f97316","#60a5fa"],
+            christmas:    ["#bbf7d0","#fca5a5","#fff","#fbbf24"],
+            newyear:      ["#a5b4fc","#fbbf24","#fff","#f9a8d4"],
+            eid:          ["#6ee7b7","#fbbf24","#fff"],
+            navratri:     ["#f472b6","#fb923c","#c084fc","#fbbf24"],
+            independence: ["#fb923c","#86efac","#fff"],
+            halloween:    ["#fb923c","#fde68a","#a8a29e"],
+            valentines:   ["#fda4af","#fff","#fecdd3"],
+            thanksgiving: ["#fcd34d","#fdba74","#fff"],
+            easter:       ["#d8b4fe","#fbcfe8","#fde68a"],
+            janmashtami:  ["#fbbf24","#93c5fd","#fff"],
+            ganesh:       ["#fb923c","#fde68a","#fff"],
+            pongal:       ["#86efac","#fde68a","#fff"],
+            lohri:        ["#fb923c","#fbbf24","#fde68a"],
+            guru:         ["#fbbf24","#93c5fd","#fff"],
+            republic:     ["#fb923c","#86efac","#fff"],
+            raksha:       ["#fda4af","#fbcfe8","#fff"],
+            diwali2:      ["#f97316","#fbbf24","#fff"],
+            default:      ["#a5b4fc","#fbbf24","#fff"],
+        };
+
+        function spawnParticles(theme) {
+            const container = document.getElementById("fp-container");
+            container.innerHTML = "";
+            const colors = PARTICLES[theme] || PARTICLES.default;
+            for (let i = 0; i < 18; i++) {
+                const el    = document.createElement("div");
+                el.className = "fp";
+                const color = colors[i % colors.length];
+                const left  = Math.random() * 93;
+                const top   = 15 + Math.random() * 65;
+                const delay = Math.random() * 3.5;
+                const dur   = 2.2 + Math.random() * 2.5;
+                const size  = 4 + Math.random() * 5.5;
+                const shape = Math.random() > 0.5 ? "50%" : "2px";
+                el.style.cssText = `left:${left}%;top:${top}%;width:${size}px;height:${size}px;background:${color};border-radius:${shape};animation-duration:${dur}s;animation-delay:${delay}s;`;
+                container.appendChild(el);
+            }
+        }
+
+        function getActiveFestival() {
+            const now = new Date();
+            const m = now.getMonth() + 1;
+            const d = now.getDate();
+            for (const f of FESTIVALS) {
+                const diff = (m - f.month) * 30 + (d - f.day);
+                if (diff >= -1 && diff <= 1) return f;
+            }
+            return null;
+        }
+
+        function showBanner(fest) {
+            const key = "fb_dismissed_" + fest.name.replace(/\s/g, "_");
+            if (sessionStorage.getItem(key)) return;
+
+            const banner  = document.getElementById("festival-banner");
+            const emoji1  = document.getElementById("festival-emoji");
+            const emoji2  = document.getElementById("festival-emoji2");
+            const message = document.getElementById("festival-message");
+
+            banner.className        = "theme-" + fest.theme;
+            emoji1.textContent      = fest.emoji;
+            emoji2.textContent      = fest.emoji;
+            message.textContent     = fest.msg;
+            banner.style.display    = "block";
+
+            spawnParticles(fest.theme);
+
+            requestAnimationFrame(() => {
+                const h = banner.offsetHeight;
+                // Nav sits just below the fixed banner
+                document.querySelector("nav").style.top = h + "px";
+                // Hero needs extra top padding = banner height + nav height
+                const navH    = document.querySelector("nav").offsetHeight;
+                const hero    = document.querySelector(".hero");
+                hero.style.paddingTop = (h + navH + 48) + "px";
+            });
+        }
+
+        window.closeFestivalBanner = function() {
+            const banner = document.getElementById("festival-banner");
+            banner.style.transition = "transform 0.35s ease, opacity 0.35s ease";
+            banner.style.transform  = "translateY(-100%)";
+            banner.style.opacity    = "0";
+            setTimeout(() => {
+                banner.style.display = "none";
+                // Reset nav back to very top
+                document.querySelector("nav").style.top = "0";
+                // Reset hero padding back to default
+                document.querySelector(".hero").style.paddingTop = "";
+            }, 360);
+            const f = getActiveFestival();
+            if (f) sessionStorage.setItem("fb_dismissed_" + f.name.replace(/\s/g, "_"), "1");
+        };
+
+        // Demo: force-show a sample banner so you can see it on your site
+        // (In production, this line is removed — it auto-detects real festivals)
+        // When user scrolls past the banner, nav auto-snaps back to top
+        window.addEventListener("scroll", function() {
+            const banner = document.getElementById("festival-banner");
+            if (banner.style.display === "none") return;
+            const h = banner.offsetHeight;
+            const nav = document.querySelector("nav");
+            if (window.scrollY >= h) {
+                nav.style.top = "0";
             } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
+                nav.style.top = (h - window.scrollY) + "px";
             }
-        }
+        }, { passive: true });
 
-        // Load saved theme on page load
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            
-            if (savedTheme === 'dark') {
-                document.querySelector('.sun-icon').style.display = 'none';
-                document.querySelector('.moon-icon').style.display = 'block';
-            }
-        })();
+        const fest = getActiveFestival() || FESTIVALS.find(f => f.name === "Diwali");
+        if (fest) showBanner(fest);
 
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            navLinks.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-
-        function closeMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            navLinks.classList.remove('active');
-            toggle.classList.remove('active');
-        }
-
-        // Toggle article expansion
-        function toggleArticle(card) {
-            // Close all other articles
-            document.querySelectorAll('.article-card').forEach(c => {
-                if (c !== card) {
-                    c.classList.remove('expanded');
-                }
-            });
-            
-            // Toggle current article
-            card.classList.toggle('expanded');
-            
-            // Smooth scroll to article if expanding
-            if (card.classList.contains('expanded')) {
-                setTimeout(() => {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-            }
-        }
-
-        // Newsletter form handling
-        function handleSubscribe(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input').value;
-            alert(`Thank you for subscribing with ${email}! You'll receive your first email soon.`);
-            event.target.reset();
-        }
-
-        // Add smooth scrolling for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    })();
     </script>
 
     <script>
-const quoteElements = document.querySelectorAll('.reveal-quote');
+    // Theme toggle
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        const sunIcon  = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+        if (newTheme === 'dark') { sunIcon.style.display = 'none';  moonIcon.style.display = 'block'; }
+        else                     { sunIcon.style.display = 'block'; moonIcon.style.display = 'none';  }
+    }
 
-const revealQuotesOnScroll = () => {
-    const windowHeight = window.innerHeight;
-
-    quoteElements.forEach((el, index) => {
-        const elementTop = el.getBoundingClientRect().top;
-
-        if (elementTop < windowHeight - 60) {
-            setTimeout(() => {
-                el.classList.add('active');
-            }, index * 120); // stagger animation
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.querySelector('.sun-icon').style.display  = 'none';
+            document.querySelector('.moon-icon').style.display = 'block';
         }
-    });
-};
+    })();
 
-window.addEventListener('scroll', revealQuotesOnScroll);
-revealQuotesOnScroll();
-</script>
+    // Mobile menu
+    function toggleMobileMenu() {
+        document.querySelector('.nav-links').classList.toggle('active');
+        document.querySelector('.mobile-menu-toggle').classList.toggle('active');
+    }
+    function closeMobileMenu() {
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.mobile-menu-toggle').classList.remove('active');
+    }
+
+    // Toggle article expansion
+    function toggleArticle(card) {
+        document.querySelectorAll('.article-card').forEach(c => { if (c !== card) c.classList.remove('expanded'); });
+        card.classList.toggle('expanded');
+        if (card.classList.contains('expanded')) {
+            setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        }
+    }
+
+    // Newsletter
+    function handleSubscribe(event) {
+        event.preventDefault();
+        const email = event.target.querySelector('input').value;
+        alert(`Thank you for subscribing with ${email}! You'll receive your first email soon.`);
+        event.target.reset();
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+    </script>
 
     <script>
-// ==============================
-// 🎲 Random Quote of the Day
-// ==============================
+    // Scroll reveal for quotes
+    const quoteElements = document.querySelectorAll('.reveal-quote');
+    const revealQuotesOnScroll = () => {
+        const wh = window.innerHeight;
+        quoteElements.forEach((el, i) => {
+            if (el.getBoundingClientRect().top < wh - 60) {
+                setTimeout(() => el.classList.add('active'), i * 120);
+            }
+        });
+    };
+    window.addEventListener('scroll', revealQuotesOnScroll);
+    revealQuotesOnScroll();
+    </script>
 
-const quotes = [
-"Your comfort zone is renting space in your potential.",
-"Discipline is choosing what you want most over what you want now.",
-"If you can control your focus, you can control your future.",
-"Pain is temporary. Regret is permanent.",
-"Small actions done daily beat motivation done occasionally.",
-"You don’t lack talent — you lack consistent effort.",
-"Be the driver of your life, not the passenger of your habits.",
-"Your future is hidden inside your daily routine."
-];
+    <script>
+    // Random Quote of the Day
+    const quotes = [
+        "Your comfort zone is renting space in your potential.",
+        "Discipline is choosing what you want most over what you want now.",
+        "If you can control your focus, you can control your future.",
+        "Pain is temporary. Regret is permanent.",
+        "Small actions done daily beat motivation done occasionally.",
+        "You don't lack talent — you lack consistent effort.",
+        "Be the driver of your life, not the passenger of your habits.",
+        "Your future is hidden inside your daily routine."
+    ];
 
-function getDailyQuote() {
-    const today = new Date().getDate();
-    const index = today % quotes.length;
-
-    const quoteEl = document.getElementById("daily-quote-text");
-
-    quoteEl.style.opacity = 0;
-
-    setTimeout(() => {
-        quoteEl.textContent = quotes[index];
-        quoteEl.style.transition = "opacity 0.5s ease";
-        quoteEl.style.opacity = 1;
-    }, 200);
-}
-
-getDailyQuote();
-
-// ==============================
-// 📋 Copy to Clipboard
-// ==============================
-
-document.querySelectorAll(".copy-btn").forEach(button => {
-    button.addEventListener("click", function() {
-        const quote = this.parentElement.querySelector(".quote-text").textContent;
-        navigator.clipboard.writeText(quote);
-
-        this.textContent = "Copied!";
+    function getDailyQuote() {
+        const today = new Date().getDate();
+        const index = today % quotes.length;
+        const quoteEl = document.getElementById("daily-quote-text");
+        quoteEl.style.opacity = 0;
         setTimeout(() => {
-            this.textContent = "Copy";
-        }, 1500);
-    });
-});
-</script>
-</body>
-</html>
+            quoteEl.textContent = quotes[index];
+            quoteEl.style.transition = "opacity 0.5s ease";
+            quoteEl.style.opacity = 1;
+        }, 200);
+    }
+    getDailyQuote();
 
-
+    // Copy buttons
+    document.querySelectorAll(".copy-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            const quote = this.parentElement.querySelector(".quote-text").textContent;
+            navigator.clipboard.writeText(quote);
